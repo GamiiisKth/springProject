@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- Triangle-->
+
+    <!-- denna raden associerar type med value genom setType metoden i Triangle
+    <bean id="triangle" class="Triangle">
+        <property name="type" value="Equilateral"/>
+    </bean>
+    -->
+
+    <!-- denna raden är istället för setType så körs vi genom en konstruktör-->
+
+    <bean id="triangle" class="Triangle">
+        <!--    <constructor-arg type=int value="20"/> eftersom spring tar emot string så
+          detta är en av de lösningarna till att tala om vilken konstruktör vi associerar vallue till
+          i vårt fall är då height-->
+
+        <!-- men låt oss att säga vi har flera int som parameter som är av int
+         då speciferart vi (index 0,1,2,....) ordningen de är definerat
+        -->
+        <constructor-arg value="Equlizater"/>
+        <constructor-arg value="20"/>
+    </bean>
+
+    <!-- Triangle2-->
+
+    <bean id="triangle2" class="Triangle2">
+<!-- inner bean-->
+        <property ref="zeroPoint" name="a">
+       <!--     <bean  id="zeroPoint" class="Point" >
+                <property name="x" value="0"/>
+                <property name="y" value="0"/>
+            </bean>
+            -->
+        </property>
+
+<!-- bean by ref-->
+        <property name="b" ref="point2"/>
+        <property name="c" ref="point3"/>
+    </bean>
+
+    <bean  id="zeroPoint" class="Point" >
+        <property name="x" value="0"/>
+        <property name="y" value="0"/>
+    </bean>
+
+    <bean id="point2" class="Point">
+     <property name="x" value="-20"/>
+     <property name="y" value="0"/>
+    </bean>
+
+
+    <bean id="point3" class="Point">
+        <property name="x" value="20"/>
+        <property name="y" value="0"/>
+    </bean>
+
+
+    <!-- Triangle3-->
+<bean id="triangle3" class="Triangle3">
+   <property name="points">
+       <list>
+           <ref bean="zeroPoint"/>
+           <ref bean="point2"/>
+           <ref bean="point3"/>
+       </list>
+   </property>
+</bean>
+
+</beans>
+
